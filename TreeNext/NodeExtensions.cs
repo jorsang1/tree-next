@@ -13,9 +13,7 @@ namespace TreeNext
             if (node.Children.Count() > 0)
             {
                 if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
-                var child = node.Children.First();
-                _nodePositions.Add(child, 0);
-                return child;
+                return GetChildAt(node, 0);
             }
 
             if (node.Parent != null)
