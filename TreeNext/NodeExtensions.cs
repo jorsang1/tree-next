@@ -13,7 +13,7 @@ namespace TreeNext
             if (node.Children.Count() > 0)
             {
                 if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
-                return GetChildAt(node, 0);
+                return GetChildAndSetPosition(node, 0);
             }
 
             if (node.Parent != null)
@@ -29,9 +29,7 @@ namespace TreeNext
         {
             if (node.Children.Count() > position)
             {
-                var child = node.Children.ElementAt(position);
-                _nodePositions.Add(child, position);
-                return child;
+                return GetChildAndSetPosition(node, position);
             }
 
             if (node.Parent != null)
@@ -41,6 +39,13 @@ namespace TreeNext
             }
 
             return null;
+        }
+
+        private static Node GetChildAndSetPosition(Node node, int position)
+        {
+            var child = node.Children.ElementAt(position);
+            _nodePositions.Add(child, position);
+            return child;
         }
     }
 }
