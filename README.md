@@ -10,4 +10,4 @@ And I do a separate commit for each refactor applied after the test.
 I name the test projects the same name as the original project we are testing with the suffix ".Test".  
 I name the test classes with the same name as the original with the suffix "Test".  
 The name "sut" is a convention that means "subject under test".  
-Test names are following the convention [Method]_WHEN_[Test conditions]_THEN_[expected result].  
+Test names are following the convention [Method]\_WHEN\_[Test conditions]\_THEN\_[expected result].  
