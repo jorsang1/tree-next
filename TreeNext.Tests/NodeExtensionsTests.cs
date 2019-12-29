@@ -14,5 +14,15 @@ namespace TreeNext.Tests
 
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void Next_WHEN_TreeHasOneChild_THEN_returnThisChild()
+        {
+            var sut = new Node(1,
+                new Node(2));
+            var result = sut.Next();
+
+            Assert.AreEqual(result.Data, 2);
+        }
     }
 }
