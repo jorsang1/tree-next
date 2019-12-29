@@ -10,26 +10,22 @@ namespace TreeNext
 
         public static Node Next(this Node node)
         {
-            if (node.Children.Count() > 0)
-            {
-                if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
-                return GetChildAndSetPosition(node, 0);
-            }
+            if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
 
-            return GetNextSibiling(node);
+            return GetChildAt(node, 0);
         }
 
         private static Node GetChildAt(Node node, int position)
         {
             if (node.Children.Count() > position)
             {
-                return GetChildAndSetPosition(node, position);
+                return GetChildAndSavePosition(node, position);
             }
 
             return GetNextSibiling(node);
         }
 
-        private static Node GetChildAndSetPosition(Node node, int position)
+        private static Node GetChildAndSavePosition(Node node, int position)
         {
             var child = node.Children.ElementAt(position);
             _nodePositions.Add(child, position);
