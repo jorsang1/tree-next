@@ -28,7 +28,7 @@ namespace TreeNext
         private static Node GetChildAndSavePosition(Node node, int position)
         {
             var child = node.Children.ElementAt(position);
-            _nodePositions.Add(child, position);
+            if (!_nodePositions.ContainsKey(child)) _nodePositions.Add(child, position);
             return child;
         }
 
