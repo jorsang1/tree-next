@@ -1,5 +1,4 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TreeNext;
 
 namespace TreeNext.Tests
 {
@@ -41,6 +40,28 @@ namespace TreeNext.Tests
 
             result = result.Next();
             Assert.AreEqual(result.Data, 4);
+        }
+
+        [TestMethod]
+        public void Next_WHEN_OneNodeHasSibilings_THEN_returnAllSibilings()
+        {
+            var sut = new Node(1,
+                new Node(2,
+                    new Node(3),
+                    new Node(4),
+                    new Node(5)));
+
+            var result = sut.Next();
+            Assert.AreEqual(result.Data, 2);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 3);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 4);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 5);
         }
     }
 }
