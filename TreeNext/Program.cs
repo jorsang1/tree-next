@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 
 //
 // Welcome to the <<Tree -> next>> kata
@@ -24,65 +22,8 @@ using System.Linq;
 // Submission: Please submit your solution within the next days to osk@templafy.com
 //
 //
-namespace TreeNextKata
+namespace TreeNext
 {
-    public class Node
-    {
-        public Node(int data, params Node[] nodes)
-        {
-            Data = data;
-            AddRange(nodes);
-        }
-
-        public Node Parent { get; set; }
-        public IEnumerable<Node> Children
-        {
-            get
-            {
-                return _children != null
-                    ? _children
-                    : Enumerable.Empty<Node>();
-            }
-        }
-        public int Data { get; private set; }
-
-        public void Add(Node node)
-        {
-            Debug.Assert(node.Parent == null);
-
-            if (_children == null)
-            {
-                _children = new List<Node>();
-            }
-            _children.Add(node);
-
-            node.Parent = this;
-        }
-        public void AddRange(IEnumerable<Node> nodes)
-        {
-            foreach (var node in nodes)
-            {
-                Add(node);
-            }
-        }
-
-        public override string ToString()
-        {
-            return Data.ToString();
-        }
-
-        private List<Node> _children;
-    }
-
-    public static class NodeExtensions
-    {
-        public static Node Next(this Node node)
-        {
-            // TODO Implement extension method here
-            return null;
-        }
-    }
-
     class Program
     {
         static void Main(string[] args)

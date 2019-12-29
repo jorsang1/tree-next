@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TreeNextKata;
+using TreeNext;
 
 namespace TreeNext.Tests
 {
