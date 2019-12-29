@@ -9,7 +9,7 @@ namespace TreeNext
 
         public static Node Next(this Node node, int position = 0)
         {
-            if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
+            InitializeNodePositions();
 
             if (node.Children.Count() > position)
             {
@@ -19,11 +19,21 @@ namespace TreeNext
             return GetNextSibiling(node);
         }
 
+        private static void InitializeNodePositions()
+        {
+            if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
+        }
+
         private static Node GetChildAndSavePosition(Node node, int position)
         {
             var child = node.Children.ElementAt(position);
-            if (!_nodePositions.ContainsKey(child)) _nodePositions.Add(child, position);
+            AddNodePosition(position, child);
             return child;
+        }
+
+        private static void AddNodePosition(int position, Node child)
+        {
+            if (!_nodePositions.ContainsKey(child)) _nodePositions.Add(child, position);
         }
 
         private static Node GetNextSibiling(Node node)
