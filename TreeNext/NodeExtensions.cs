@@ -16,13 +16,7 @@ namespace TreeNext
                 return GetChildAndSetPosition(node, 0);
             }
 
-            if (node.Parent != null)
-            {
-                var currentPosition = _nodePositions[node];
-                return GetChildAt(node.Parent, currentPosition + 1);
-            }
-
-            return null;
+            return GetNextSibiling(node);
         }
 
         private static Node GetChildAt(Node node, int position)
@@ -32,13 +26,7 @@ namespace TreeNext
                 return GetChildAndSetPosition(node, position);
             }
 
-            if (node.Parent != null)
-            {
-                var currentPosition = _nodePositions[node];
-                return GetChildAt(node.Parent, currentPosition + 1);
-            }
-
-            return null;
+            return GetNextSibiling(node);
         }
 
         private static Node GetChildAndSetPosition(Node node, int position)
@@ -46,6 +34,16 @@ namespace TreeNext
             var child = node.Children.ElementAt(position);
             _nodePositions.Add(child, position);
             return child;
+        }
+
+        private static Node GetNextSibiling(Node node)
+        {
+            if (node.Parent != null)
+            {
+                var currentParentPosition = _nodePositions[node];
+                return GetChildAt(node.Parent, currentParentPosition + 1);
+            }
+            return null;
         }
     }
 }
