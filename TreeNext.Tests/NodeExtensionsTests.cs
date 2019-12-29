@@ -63,5 +63,31 @@ namespace TreeNext.Tests
             result = result.Next();
             Assert.AreEqual(result.Data, 5);
         }
+
+        [TestMethod]
+        public void Next_WHEN_OneNodeHasChildrenAndSibilings_THEN_returnChildrenFisrtAndThenAllSibilings()
+        {
+            var sut = new Node(1,
+                new Node(2,
+                    new Node(3),
+                    new Node(4),
+                    new Node(5)),
+                new Node(6));
+
+            var result = sut.Next();
+            Assert.AreEqual(result.Data, 2);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 3);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 4);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 5);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 6);
+        }
     }
 }

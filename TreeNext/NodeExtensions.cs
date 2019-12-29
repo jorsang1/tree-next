@@ -27,9 +27,20 @@ namespace TreeNext
 
         private static Node GetChildAt(Node node, int position)
         {
-            var child = node.Children.ElementAt(position);
-            _nodePositions.Add(child, position);
-            return child;
+            if (node.Children.Count() > position)
+            {
+                var child = node.Children.ElementAt(position);
+                _nodePositions.Add(child, position);
+                return child;
+            }
+
+            if (node.Parent != null)
+            {
+                var currentPosition = _nodePositions[node];
+                return GetChildAt(node.Parent, currentPosition + 1);
+            }
+
+            return null;
         }
     }
 }
