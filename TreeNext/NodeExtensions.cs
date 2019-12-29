@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace TreeNext
@@ -8,15 +7,10 @@ namespace TreeNext
     {
         private static IDictionary<Node, int> _nodePositions;
 
-        public static Node Next(this Node node)
+        public static Node Next(this Node node, int position = 0)
         {
             if (_nodePositions == null) _nodePositions = new Dictionary<Node, int>();
 
-            return GetChildAt(node, 0);
-        }
-
-        private static Node GetChildAt(Node node, int position)
-        {
             if (node.Children.Count() > position)
             {
                 return GetChildAndSavePosition(node, position);
@@ -37,7 +31,7 @@ namespace TreeNext
             if (node.Parent != null)
             {
                 var currentParentPosition = _nodePositions[node];
-                return GetChildAt(node.Parent, currentParentPosition + 1);
+                return node.Parent.Next(currentParentPosition + 1);
             }
             return null;
         }
