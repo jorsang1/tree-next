@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 
 namespace TreeNext.Tests
 {
@@ -163,5 +164,69 @@ namespace TreeNext.Tests
             result = result.Next();
             Assert.IsNull(result);
         }
+
+        [TestMethod]
+        public void Next_WHEN_Multithread_THEN_returnOk()
+        {
+            int REPETITIONS = 3000;
+            Thread[] threads = new Thread[REPETITIONS];
+            for (var i = 0; i < REPETITIONS; i++)
+            {
+                threads[i] = new Thread(BasicTest);
+            }
+            for (var i = 0; i < REPETITIONS; i++)
+            {
+                threads[i].Start();
+            }
+        }
+
+
+        public void BasicTest()
+        {
+            var sut = new Node(1,
+                new Node(2,
+                    new Node(3),
+                    new Node(4),
+                    new Node(5)));
+
+            var result = sut.Next();
+            Assert.AreEqual(result.Data, 2);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 3);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 4);
+
+            result = result.Next();
+            Assert.AreEqual(result.Data, 5);
+        }
+
+
+        [TestMethod]
+        public void Next_WHEN_DeepTree_THEN_returnOk()
+        {
+            int REPETITIONS = 3000000;
+            Node[] nodes = new Node[REPETITIONS];
+            for (var i = 0; i < REPETITIONS; i++)
+            {
+                if (i==0)
+                    nodes[i] = new Node(i);
+                else
+                    nodes[i] = new Node(i, nodes[i-1]);
+            }
+
+            var sut = nodes[REPETITIONS - 1];
+            while (sut != null)
+            {
+                var i = sut.Data;
+                sut = sut.Next();
+                if (sut != null)
+                {
+                    Assert.AreEqual(sut.Data, i - 1);
+                }
+            }
+        }
+
     }
 }
